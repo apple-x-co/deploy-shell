@@ -50,6 +50,7 @@ function main() {
     ORIGIN=""
     DESTINATION=""
     EXCLUDE_FROM=".deploy-sync-exclude"
+    EXTR_SCRIPT=""
     NOTIFY_TOOL=""
     NOTIFY_NAME=""
     source ${CONFIG_FILE}
@@ -85,10 +86,14 @@ function main() {
         [ -f ${NOTIFY_TOOL} ] || abort "Variable NOTIFY_TOOL is no such file, ${NOTIFY_TOOL}"
     fi
     # Check6
+    if [ "${EXTR_SCRIPT}" != '' ]; then
+        [ -f ${EXTR_SCRIPT} ] || abort "Variable EXTR_SCRIPT is no such file, ${EXTR_SCRIPT}"
+    fi
+    # Check7
     if [ "${ORIGIN}" = "${DESTINATION}" ]; then
         abort "Variable ORIGIN and DESTINATION is same."
     fi
-    # Check7
+    # Check8
     if [ "${MODE}" = 'pull' ] || \
        [ "${MODE}" = 'pull-sync' ] || \
        [ "${MODE}" = 'pull-sync-force' ]; then
@@ -116,8 +121,9 @@ function main() {
     elif [ "${MODE}" = 'notify-test' ]; then
         notify_test
     else
-        abort "Unknown mode, ${MODE}";
+        abort "Unknown mode, ${MODE}"
     fi
+    execute_extra_script ${MODE}
 }
 
 function abort() {
@@ -139,9 +145,10 @@ function highlight_end() {
 
 function echo_config() {
     highlight_start
-    echo "GIT_HOME : ${GIT_HOME}"
-    echo "ORIGIN : ${ORIGIN}"
-    echo "DESTINATION : ${DESTINATION}"
+    echo "OWNER        : ${OWNER}"
+    echo "GIT_HOME     : ${GIT_HOME}"
+    echo "ORIGIN       : ${ORIGIN}"
+    echo "DESTINATION  : ${DESTINATION}"
     echo "EXCLUDE_FROM : ${EXCLUDE_FROM}"
     highlight_end
 }
@@ -256,6 +263,11 @@ function notify_test() {
     echo "Notify to ${NOTIFY_NAME}"
     cd ${BASE_DIRECTORY}
     ${NOTIFY_TOOL}
+}
+function execute_extra_script() {
+    if [ "${EXTR_SCRIPT}" != '' ]; then
+        "${EXTR_SCRIPT}" $1
+    fi
 }
 
 BASE_DIRECTORY="`dirname $0`"

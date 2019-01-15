@@ -17,3 +17,6 @@ EXCLUDE_FROM="/var/www/vhosts/example.com/deploy/.deploy-sync-exclude"
 NOTIFY_TOOL="./deploy-notify.sh"
 NOTIFY_NAME="Slack"
 SERVICE_URL="https://example.com/"
+
+# Extra scripts
+EXTR_SCRIPT="/var/www/vhosts/example.com/deploy/deploy-extra.sh"
