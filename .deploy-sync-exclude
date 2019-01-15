@@ -1,0 +1,9 @@
+- .gitkeep
+- .gitignore
+- .editorconfig
+- healthcheck.txt
+- .env.local
+- /html/upload/
+- /html/user_data/
+- /var/
+- /vendor/

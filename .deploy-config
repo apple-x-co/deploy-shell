@@ -1,0 +1,19 @@
+OWNER="username"
+
+# SERVER_NAME=""
+
+GIT_HOME="/var/www/vhosts/example.com/deploy/git_clone/"
+
+# Ex. Git clone directory
+ORIGIN="/var/www/vhosts/example.com/deploy/git_clone/source/"
+
+# Ex. Document root in web server
+DESTINATION="/var/www/vhosts/example.com/htdocs/"
+
+# rsync's parameter 'exclude-from'
+EXCLUDE_FROM="/var/www/vhosts/example.com/deploy/.deploy-sync-exclude"
+
+# Ex. Slack or Mail etc...
+NOTIFY_TOOL="./deploy-notify.sh"
+NOTIFY_NAME="Slack"
+SERVICE_URL="https://example.com/"
