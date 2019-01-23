@@ -270,6 +270,6 @@ function execute_extra_script() {
     fi
 }
 
-BASE_DIRECTORY="`dirname $0`"
-cd "${BASE_DIRECTORY}"
+cd "`dirname $0`"
+BASE_DIRECTORY="`pwd`"
 main $1
